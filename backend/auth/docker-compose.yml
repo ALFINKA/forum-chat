@@ -1,0 +1,29 @@
+version: '3.7'
+services:
+  app-backend:
+    container_name: forum-chat-auth
+    build: .
+    restart: on-failure
+    env_file:
+      - .env
+    environment:
+      - GO_ENV=${GO_ENV}
+      - PORT=${PORT}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASS}
+      - DB_NAME=${DB_NAME}
+      - JWT_SECRET=${JWT_SECRET}
+    ports:
+      - ${PORT}:${PORT}
+    volumes:
+      - app-data:/app
+    networks:
+      - app
+
+volumes:
+  app-data:
+networks:
+  app:
+    driver: bridge
